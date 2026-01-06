@@ -1,83 +1,80 @@
-# Aadhar Hackathon API
+# 📊 Aadhaar Analytics Dashboard
 
-This is a FastAPI-based application designed for the Aadhar Hackathon. It provides analytics and data synchronization capabilities for Aadhar enrolment data, allowing users to upload CSV files or sync data directly from the official government API.
+An interactive full-stack application for visualizing Aadhaar enrolment trends and insights. This project combines a **FastAPI** backend for robust data management and a **Streamlit** frontend for a premium analytical experience.
 
-## Features
+## 🚀 Features
 
-- **CSV Upload**: Ingest enrolment data via CSV files.
-- **API Sync**: Fetch and sync data directly from the official Aadhar Open Data API.
-- **Analytics**: View trends by state, district, and age demographics.
-- **Anomalies**: Detect low enrolment anomalies.
-- **Data Management**: options to clear data and manage sync filters.
+### 📈 Real-time Analytics
+- **KPI Cards**: Instantly view total enrolments, age group breakdowns (0-5, 5-17, 17+), and top-performing states.
+- **Trend Analysis**: Interactive time-series charts showing daily enrolment patterns.
+- **Geographic Insights**: Bar charts ranking states by enrolment volume.
+- **Anomaly Detection**: Automatic identification of low enrolment days to flag potential data or operational issues.
 
-## Prerequisites
+### 🗺️ Advanced Filtering
+- **Dropdown Mode**: Select from auto-populated states and districts available in the database.
+- **Manual Mode [NEW]**: Type state and district names directly—perfect for syncing data for new regions.
 
-- Python 3.8+
-- pip (Python package installer)
+### 🔄 Data Management
+- **API Sync**: Seamless integration with the official Aadhaar Open Data API with customizable fetch limits.
+- **CSV Upload**: Bulk ingest data via CSV files.
+- **Safe State**: Automatic database clearing on new session starts (optional) and manual data management tools.
 
-## Installation
+## 🛠️ Tech Stack
 
-1.  **Clone the repository** (if applicable) or navigate to the project directory.
+- **Frontend**: [Streamlit](https://streamlit.io/) + [Plotly](https://plotly.com/)
+- **Backend**: [FastAPI](https://fastapi.tiangolo.com/) + [SQLAlchemy](https://www.sqlalchemy.org/)
+- **Database**: SQLite (local)
+- **Data Source**: Official Aadhaar Open Data API
 
-2.  **Create a virtual environment** (recommended):
-    ```bash
-    python -m venv .venv
-    # Windows
-    .venv\Scripts\activate
-    # Linux/Mac
-    source .venv/bin/activate
-    ```
+## ⚙️ Setup & Installation
 
-3.  **Install dependencies**:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-## Configuration
-
-1.  **Create a `.env` file** in the root directory.
-2.  Add your API Key to the `.env` file:
-    ```env
-    API_KEY=your_api_key_here
-    ```
-    *(Note: A default key might be provided in `app/services/api_fetcher.py` fallback or documentation, but using `.env` is secure and recommended).*
-
-## Running the Application
-
-To start the server, run:
-
+### 1. Environment Setup
 ```bash
-uvicorn app.main:app --reload
+# Clone the repository
+git clone <repository-url>
+cd aadhar-hackathon
+
+# Create and activate virtual environment
+python -m venv .venv
+.venv\Scripts\activate  # Windows
+source .venv/bin/activate  # Linux/Mac
 ```
 
-The API will be available at `http://127.0.0.1:8000`.
-
-## API Documentation
-
-Once the server is running, you can access the interactive API documentation (Swagger UI) at:
-- `http://127.0.0.1:8000/docs`
-
-### Key Endpoints
-
-- **GET /**: Health check.
-- **POST /upload**: Upload a CSV file containing enrolment data.
-- **POST /sync-api**: Sync data from the external API (supports filtering by state/district).
-- **GET /summary**: Get overall enrolment statistics.
-- **GET /trends/state**: Get enrolment trends grouped by state.
-- **GET /trends/district**: Get enrolment trends grouped by district.
-- **GET /age-comparison**: Compare enrolment numbers across age groups.
-- **GET /anomalies**: Get districts with low enrolment numbers.
-- **DELETE /clear-data**: Clear all data from the database.
-
-## Testing
-
-Batch scripts are provided for easy verification:
-
-- `verify.bat`: Runs the server and executes general API tests.
-- `verify_api_sync.bat`: Tests the API synchronization feature.
-- `verify_filtered_sync.bat`: Tests filtered synchronization.
-
-To run a test (Windows):
-```cmd
-verify.bat
+### 2. Install Dependencies
+```bash
+pip install -r requirements.txt
 ```
+
+### 3. Configuration
+Create a `.env` file in the root directory:
+```env
+API_KEY=your_aadhaar_data_gov_in_api_key
+```
+
+## 🏃 Running the Application
+
+For the best experience, run both the backend and frontend simultaneously:
+
+### Start the Backend (API)
+```bash
+uvicorn app.main:app --port 8000 --reload
+```
+Navigate to `http://127.0.0.1:8000/docs` to view the interactive API documentation.
+
+### Start the Frontend (Dashboard)
+```bash
+streamlit run streamlit_app.py
+```
+The dashboard will be available at `http://localhost:8501`.
+
+## 📂 Project Structure
+
+- `app/`: FastAPI application logic.
+  - `services/`: Core logic for API fetching, ingestion, and analytics.
+  - `models.py`: Database schema definitions.
+- `frontend/`: (Optional) Alternative dashboard entry points.
+- `streamlit_app.py`: Main Streamlit dashboard file.
+- `testing/`: Verification scripts and sample data.
+
+---
+*Developed for the Aadhaar Analytics Hackathon.*
